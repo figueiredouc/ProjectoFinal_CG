@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>FAACBFF3-6E5D-47DE-84BE-F0DF5225516C</string>
+	<key>IDESourceControlProjectName</key>
+	<string>CG_PROJ_FINAL</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>9B796860C4DB39F7090A27A5881FDBDA98C3E773</key>
+		<string>github.com:figueiredouc/ProjectoFinal_CG.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>CG_PROJ_FINAL/CG_PROJ_FINAL.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>9B796860C4DB39F7090A27A5881FDBDA98C3E773</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>github.com:figueiredouc/ProjectoFinal_CG.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>9B796860C4DB39F7090A27A5881FDBDA98C3E773</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>9B796860C4DB39F7090A27A5881FDBDA98C3E773</string>
+			<key>IDESourceControlWCCName</key>
+			<string>ProjectoFinal_CG</string>
+		</dict>
+	</array>
+</dict>
+</plist>
