@@ -6,9 +6,13 @@
 #include <iostream>
 #include <cmath>
 
+
+ GLfloat GREEN[] = {1, 0, 0};
+
 float width=800;
 float height=600;
 
+<<<<<<< HEAD
 class Camera{
     
     double teta;
@@ -52,10 +56,48 @@ public:
     void moveDown(){
         if (y>dY)
             y -= dY;
+=======
+
+class Bola{
+    
+    double raio;
+    GLfloat* cor;
+
+    public:double x;
+    double y;
+    double z;
+    int direction;
+    
+    
+public:
+    Bola(double raio, GLfloat* cor, double x, double y,double z):
+        raio(raio),
+        cor(cor),
+        direction(-1),
+        x(x),
+        y(y),
+        z(z) {}
+
+    
+    void update(){
+        
+        x+=0.1;
+       
+        glPushMatrix();
+        glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, cor);
+        glTranslated(x, y, z);
+        glutSolidSphere(raio, 30, 30);
+        glPopMatrix();
+>>>>>>> cc514587ed233bfc0dfdd8ea0813df14f8886e7e
     }
     
 };
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> cc514587ed233bfc0dfdd8ea0813df14f8886e7e
 class Casa{
     
     float altura;
@@ -152,6 +194,16 @@ public:
 
 // provisório
 
+
+
+//Declaração de Objectos
+
+Bola bola = Bola(1,GREEN,0.0,0.0,0.0);
+
+
+
+
+
 void projection(){
     
     glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
@@ -175,17 +227,23 @@ void projection(){
     
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
+<<<<<<< HEAD
     gluLookAt(8.0,4.0,8.0, 0, 4.0, 0, 0.0, 1.0, 0.0);
+=======
+    gluLookAt(5.0,5.0,5.0, 0, 0, 0, 0.0, 1.0, 0.0);
+>>>>>>> cc514587ed233bfc0dfdd8ea0813df14f8886e7e
     
     /******************************************/
     
-    
+    glutSwapBuffers();
+
 }
 
-void init() {
+void display(){
     
-    Casa house;
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     
+<<<<<<< HEAD
     house.set_values(8.0, 8.0, 8.0);
     
     projection();
@@ -193,7 +251,20 @@ void init() {
     house.draw();
     
     glFlush();
+=======
+    bola.update();
+    printf("bola.x -> %f \n",bola.x);
+>>>>>>> cc514587ed233bfc0dfdd8ea0813df14f8886e7e
     glutSwapBuffers();
+}
+
+void init() {
+    projection();
+    }
+
+void timer(int v) {
+    glutPostRedisplay();
+    glutTimerFunc(1000/60, timer, v);
 }
 
 int main(int argc, char** argv) {
@@ -204,8 +275,9 @@ int main(int argc, char** argv) {
     glutInitWindowSize(width,height);
     glutCreateWindow("Projecto Final CG");
     glEnable(GL_DEPTH_TEST);
-   
-    glutDisplayFunc(init);
+    glutTimerFunc(100, timer, 0);
+    init();
+    glutDisplayFunc(display);
     
     
     glutMainLoop();
