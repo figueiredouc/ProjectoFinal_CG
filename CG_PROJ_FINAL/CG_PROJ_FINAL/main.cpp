@@ -22,7 +22,7 @@ class Camera{
     
 public:
     
-    Camera(double t,double yp,double dt,double dyp){
+    void set_values(double t,double yp,double dt,double dyp){
         
         teta=t;
         y=yp;
@@ -203,44 +203,32 @@ Bola bola = Bola(1,GREEN,0.0,0.0,0.0);
 
 Casa house;
 
+Camera cam;
 
 
 void projection(){
     
-    glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
+    glLoadIdentity();
+
+    gluLookAt(cam.getX(),cam.getY(),cam.getZ(), 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
     
-    /********** Janela de Visualisação *********/
     
-    glViewport(0, 0, width, height);
+
+}
+
+void reshape(GLint w, GLint h){
     
-    /*******************************************/
-    
-    /*************** Prespectiva ***************/
-    
+    glViewport(0, 0, w, h);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    gluPerspective(60.0,width/height, 1.0,100.0);
-    
-    /*******************************************/
-    
-    
-    /*************** Observador ***************/
-    
+    gluPerspective(40.0, GLfloat(w)/GLfloat(h), 1.0, 150.0);
     glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
-
-    gluLookAt(8.0,4.0,8.0, 0, 4.0, 0, 0.0, 1.0, 0.0);
-    
-    /******************************************/
-    
-    glutSwapBuffers();
-
 }
 
 void display(){
     
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
+    projection();
     house.draw();
     bola.update();
     glutSwapBuffers();
@@ -248,9 +236,12 @@ void display(){
 
 void init() {
 
-    projection();
+    cam.set_values(0, 10, 0.04, 0.2);
+    
+    
     
     house.set_values(8.0, 8.0, 8.0);
+    
 
 }
 
@@ -259,9 +250,19 @@ void timer(int v) {
     glutTimerFunc(1000/60, timer, v);
 }
 
-
-
-
+void special(int key, int, int) {
+    switch (key) {
+        case GLUT_KEY_LEFT: cam.moveLeft();  break;
+        case GLUT_KEY_RIGHT: cam.moveRight(); break;
+        case GLUT_KEY_UP: cam.moveUp(); break;
+        case GLUT_KEY_DOWN: cam.moveDown(); break;
+       /* case 'a' : look_to_left(); break;
+        case 's' : look_to_down(); break;
+        case 'd' : look_to_righ(); break;
+        case 'w' : look_to_up(); break;*/
+    }
+    glutPostRedisplay();
+}
 
 int main(int argc, char** argv) {
     
@@ -274,7 +275,8 @@ int main(int argc, char** argv) {
     glutTimerFunc(100, timer, 0);
     init();
     glutDisplayFunc(display);
-    
+    glutReshapeFunc(reshape);
+    glutSpecialFunc(special);
     
     glutMainLoop();
 }
