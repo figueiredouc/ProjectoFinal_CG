@@ -5,8 +5,48 @@
 #endif
 #include <iostream>
 
+
+ GLfloat GREEN[] = {1, 0, 0};
+
 float width=800;
 float height=600;
+
+
+class Bola{
+    
+    double raio;
+    GLfloat* cor;
+
+    public:double x;
+    double y;
+    double z;
+    int direction;
+    
+    
+public:
+    Bola(double raio, GLfloat* cor, double x, double y,double z):
+        raio(raio),
+        cor(cor),
+        direction(-1),
+        x(x),
+        y(y),
+        z(z) {}
+
+    
+    void update(){
+        
+        x+=0.1;
+       
+        glPushMatrix();
+        glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, cor);
+        glTranslated(x, y, z);
+        glutSolidSphere(raio, 30, 30);
+        glPopMatrix();
+    }
+    
+};
+
+
 
 class Casa{
     
@@ -47,6 +87,16 @@ public:
 
 // provisório
 
+
+
+//Declaração de Objectos
+
+Bola bola = Bola(1,GREEN,0.0,0.0,0.0);
+
+
+
+
+
 void projection(){
     
     glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
@@ -70,23 +120,30 @@ void projection(){
     
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-    gluLookAt(5.0,25.0,5.0, 0, 0, 0, 0.0, 1.0, 0.0);
+    gluLookAt(5.0,5.0,5.0, 0, 0, 0, 0.0, 1.0, 0.0);
     
     /******************************************/
     
+    glutSwapBuffers();
+
+}
+
+void display(){
     
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    
+    bola.update();
+    printf("bola.x -> %f \n",bola.x);
+    glutSwapBuffers();
 }
 
 void init() {
-    
-    Casa house;
-    
     projection();
-    
-    house.draw();
-    
-    glFlush();
-    glutSwapBuffers();
+    }
+
+void timer(int v) {
+    glutPostRedisplay();
+    glutTimerFunc(1000/60, timer, v);
 }
 
 int main(int argc, char** argv) {
@@ -97,8 +154,9 @@ int main(int argc, char** argv) {
     glutInitWindowSize(width,height);
     glutCreateWindow("Projecto Final CG");
     glEnable(GL_DEPTH_TEST);
-   
-    glutDisplayFunc(init);
+    glutTimerFunc(100, timer, 0);
+    init();
+    glutDisplayFunc(display);
     
     
     glutMainLoop();
