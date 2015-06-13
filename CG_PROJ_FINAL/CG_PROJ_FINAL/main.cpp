@@ -6,7 +6,7 @@
 #include <iostream>
 #include <cmath>
 #include "RgbImage.h"
-
+# define PI 3.14159265358979323846
 
 GLfloat GREEN[] = {1, 0, 0};
 GLuint texture;
@@ -22,20 +22,22 @@ class Camera{
     double y;
     double dTeta;
     double dY;
+    double raio;
     
 public:
     
-    void set_values(double t,double yp,double dt,double dyp){
+    void set_values(double t,double yp,double dt,double dyp,double r){
         
         teta=t;
         y=yp;
         dTeta=dt;
         dY=dyp;
+        raio=r;
         
     }
     
     double getX(){
-        return 10 * cos(teta);
+        return raio * cos(teta);
     }
     
     double getY(){
@@ -43,7 +45,7 @@ public:
     }
     
     double getZ(){
-        return 10 * sin(teta);
+        return raio * sin(teta);
     }
     
     void moveRight(){
@@ -104,22 +106,18 @@ public:
 
 class Casa{
     
-    float altura;
-    float comprimento;
-    float largura;
+    float lado;
     
 public:
     
-    void set_values(float a,float c,float l){
+    void set_values(float raio){
         
-        altura=a;
-        comprimento=c;
-        largura=l;
+        lado=raio;
         
     }
     
-    int area(){
-        return comprimento*largura;
+    float getLado(){
+        return lado;
     }
     
     void draw(){
@@ -129,9 +127,9 @@ public:
         glBegin(GL_QUADS);
         
         glTexCoord2f(0.0, 0.0); glVertex3f(0.0, 0.0, 0.0);
-        glTexCoord2f(1.0, 0.0); glVertex3f(0.0, 0.0, largura);
-        glTexCoord2f(1.0, 1.0); glVertex3f(comprimento, 0.0, largura);
-        glTexCoord2f(0.0, 1.0); glVertex3f(comprimento, 0.0, 0.0);
+        glTexCoord2f(1.0, 0.0); glVertex3f(0.0, 0.0, lado);
+        glTexCoord2f(1.0, 1.0); glVertex3f(lado, 0.0, lado);
+        glTexCoord2f(0.0, 1.0); glVertex3f(lado, 0.0, 0.0);
         
         glEnd();
         glDisable(GL_TEXTURE_2D);
@@ -141,9 +139,9 @@ public:
         glBegin(GL_QUADS);
         
         glTexCoord2f(0.0, 0.0); glVertex3f(0.0, 0.0, 0.0);
-        glTexCoord2f(1.0, 0.0); glVertex3f(0.0, altura, 0.0);
-        glTexCoord2f(1.0, 1.0); glVertex3f(comprimento, altura, 0.0);
-        glTexCoord2f(0.0, 1.0); glVertex3f(comprimento, 0.0, 0.0);
+        glTexCoord2f(1.0, 0.0); glVertex3f(0.0, lado, 0.0);
+        glTexCoord2f(1.0, 1.0); glVertex3f(lado, lado, 0.0);
+        glTexCoord2f(0.0, 1.0); glVertex3f(lado, 0.0, 0.0);
         
         glEnd();
         glDisable(GL_TEXTURE_2D);
@@ -153,9 +151,9 @@ public:
         glBegin(GL_QUADS);
         
         glTexCoord2f(0.0, 0.0); glVertex3f(0.0, 0.0, 0.0);
-        glTexCoord2f(1.0, 0.0); glVertex3f(0.0, altura, 0.0);
-        glTexCoord2f(1.0, 1.0); glVertex3f(0.0, altura, largura);
-        glTexCoord2f(0.0, 1.0); glVertex3f(0.0, 0.0, largura);
+        glTexCoord2f(1.0, 0.0); glVertex3f(0.0, lado, 0.0);
+        glTexCoord2f(1.0, 1.0); glVertex3f(0.0, lado, lado);
+        glTexCoord2f(0.0, 1.0); glVertex3f(0.0, 0.0, lado);
         
         glEnd();
         glDisable(GL_TEXTURE_2D);
@@ -165,10 +163,10 @@ public:
         glBegin(GL_QUADS);
         
         
-        glTexCoord2f(0.0, 0.0); glVertex3f(comprimento, 0.0, 0.0);
-        glTexCoord2f(1.0, 0.0); glVertex3f(comprimento, altura, 0.0);
-        glTexCoord2f(1.0, 1.0); glVertex3f(comprimento, altura, largura);
-        glTexCoord2f(0.0, 1.0); glVertex3f(comprimento, 0.0, largura);
+        glTexCoord2f(0.0, 0.0); glVertex3f(lado, 0.0, 0.0);
+        glTexCoord2f(1.0, 0.0); glVertex3f(lado, lado, 0.0);
+        glTexCoord2f(1.0, 1.0); glVertex3f(lado, lado, lado);
+        glTexCoord2f(0.0, 1.0); glVertex3f(lado, 0.0, lado);
         
         glEnd();
         glDisable(GL_TEXTURE_2D);
@@ -177,10 +175,10 @@ public:
         glBindTexture(GL_TEXTURE_2D, texture);
         glBegin(GL_QUADS);
        
-        glTexCoord2f(0.0, 0.0); glVertex3f(0.0, 0.0, largura);
-        glTexCoord2f(1.0, 0.0); glVertex3f(0.0, altura, largura);
-        glTexCoord2f(1.0, 1.0); glVertex3f(comprimento, altura, largura);
-        glTexCoord2f(0.0, 1.0); glVertex3f(comprimento, 0.0, largura);
+        glTexCoord2f(0.0, 0.0); glVertex3f(0.0, 0.0, lado);
+        glTexCoord2f(1.0, 0.0); glVertex3f(0.0, lado, lado);
+        glTexCoord2f(1.0, 1.0); glVertex3f(lado, lado, lado);
+        glTexCoord2f(0.0, 1.0); glVertex3f(lado, 0.0, lado);
         
         glEnd();
         glDisable(GL_TEXTURE_2D);
@@ -190,20 +188,16 @@ public:
         glBegin(GL_QUADS);
         
         
-        glTexCoord2f(0.0, 0.0); glVertex3f(0.0, altura, 0.0);
-        glTexCoord2f(1.0, 0.0); glVertex3f(0.0, altura, largura);
-        glTexCoord2f(1.0, 1.0); glVertex3f(comprimento, altura, largura);
-        glTexCoord2f(0.0, 1.0); glVertex3f(comprimento, altura, 0.0);
+        glTexCoord2f(0.0, 0.0); glVertex3f(0.0, lado, 0.0);
+        glTexCoord2f(1.0, 0.0); glVertex3f(0.0, lado, lado);
+        glTexCoord2f(1.0, 1.0); glVertex3f(lado, lado, lado);
+        glTexCoord2f(0.0, 1.0); glVertex3f(lado, lado, 0.0);
         
         glEnd();
         glDisable(GL_TEXTURE_2D);
     }
     
 };
-
-// provisório
-
-
 
 //Declaração de Objectos
 
@@ -213,17 +207,19 @@ Casa house;
 
 Camera cam;
 
+bool inicialSet=true;
 
 
 
 void projection(){
     
     glLoadIdentity();
-
+    
     gluLookAt(cam.getX(),cam.getY(),cam.getZ(), 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
     
     
-
+    printf("camera(%f,%f,%f)\n",cam.getX(),cam.getY(),cam.getZ());
+    
 }
 
 void reshape(GLint w, GLint h){
@@ -233,6 +229,7 @@ void reshape(GLint w, GLint h){
     glLoadIdentity();
     gluPerspective(40.0, GLfloat(w)/GLfloat(h), 1.0, 150.0);
     glMatrixMode(GL_MODELVIEW);
+    
 }
 
 void display(){
@@ -241,6 +238,7 @@ void display(){
     projection();
     house.draw();
     bola.update();
+    
     glutSwapBuffers();
 }
 
@@ -265,9 +263,11 @@ void init() {
     glEnable(GL_TEXTURE_2D);
     
     criaTextura();
+    house.set_values(50.0);
+    cam.set_values(PI/4, house.getLado(), 0.04, 0.2,house.getLado());
     
-    cam.set_values(0, 10, 0.04, 0.2);
-    house.set_values(8.0, 8.0, 8.0);
+    printf("camera(%f,%f,%f)\n",cam.getX(),cam.getY(),cam.getZ());
+    
     
 
 }
@@ -279,7 +279,7 @@ void timer(int v) {
 
 void special(int key, int, int) {
     switch (key) {
-        case GLUT_KEY_LEFT: cam.moveLeft();  break;
+        case GLUT_KEY_LEFT: cam.moveLeft(); break;
         case GLUT_KEY_RIGHT: cam.moveRight(); break;
         case GLUT_KEY_UP: cam.moveUp(); break;
         case GLUT_KEY_DOWN: cam.moveDown(); break;
