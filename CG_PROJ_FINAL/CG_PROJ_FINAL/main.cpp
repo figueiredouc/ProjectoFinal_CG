@@ -82,6 +82,13 @@ public:
     
     void update(){
         
+        y += direction * 0.05;
+        
+        if (y > 5) {
+            y = 5; direction = -1;
+        } else if (y < raio) {
+            y = raio; direction = 1;
+        }
        
         glPushMatrix();
         glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, cor);
@@ -233,17 +240,8 @@ void projection(){
 void display(){
     
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    
-    
-    projection();
-    
     house.draw();
-    
-    glFlush();
-
     bola.update();
-    printf("bola.x -> %f \n",bola.x);
-
     glutSwapBuffers();
 }
 
@@ -259,6 +257,10 @@ void timer(int v) {
     glutPostRedisplay();
     glutTimerFunc(1000/60, timer, v);
 }
+
+
+
+
 
 int main(int argc, char** argv) {
     
