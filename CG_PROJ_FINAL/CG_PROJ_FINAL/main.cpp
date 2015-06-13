@@ -12,7 +12,7 @@
 float width=800;
 float height=600;
 
-<<<<<<< HEAD
+
 class Camera{
     
     double teta;
@@ -56,7 +56,8 @@ public:
     void moveDown(){
         if (y>dY)
             y -= dY;
-=======
+    }
+};
 
 class Bola{
     
@@ -88,16 +89,10 @@ public:
         glTranslated(x, y, z);
         glutSolidSphere(raio, 30, 30);
         glPopMatrix();
->>>>>>> cc514587ed233bfc0dfdd8ea0813df14f8886e7e
     }
     
 };
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> cc514587ed233bfc0dfdd8ea0813df14f8886e7e
 class Casa{
     
     float altura;
@@ -200,7 +195,7 @@ public:
 
 Bola bola = Bola(1,GREEN,0.0,0.0,0.0);
 
-
+Casa house;
 
 
 
@@ -227,11 +222,8 @@ void projection(){
     
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-<<<<<<< HEAD
+
     gluLookAt(8.0,4.0,8.0, 0, 4.0, 0, 0.0, 1.0, 0.0);
-=======
-    gluLookAt(5.0,5.0,5.0, 0, 0, 0, 0.0, 1.0, 0.0);
->>>>>>> cc514587ed233bfc0dfdd8ea0813df14f8886e7e
     
     /******************************************/
     
@@ -243,24 +235,26 @@ void display(){
     
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     
-<<<<<<< HEAD
-    house.set_values(8.0, 8.0, 8.0);
     
     projection();
     
     house.draw();
     
     glFlush();
-=======
+
     bola.update();
     printf("bola.x -> %f \n",bola.x);
->>>>>>> cc514587ed233bfc0dfdd8ea0813df14f8886e7e
+
     glutSwapBuffers();
 }
 
 void init() {
+
     projection();
-    }
+    
+    house.set_values(8.0, 8.0, 8.0);
+
+}
 
 void timer(int v) {
     glutPostRedisplay();
