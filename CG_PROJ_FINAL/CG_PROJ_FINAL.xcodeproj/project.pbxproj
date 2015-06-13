@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4E105C461B2BE0DB00CE8C00 /* RgbImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4E105C441B2BE0DB00CE8C00 /* RgbImage.cpp */; };
 		6542B68C1B2B471200D12CAE /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6542B68B1B2B471200D12CAE /* main.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
 		6542B6941B2B4B3700D12CAE /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6542B6921B2B4B3700D12CAE /* GLUT.framework */; };
 		6542B6951B2B4B3700D12CAE /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6542B6931B2B4B3700D12CAE /* OpenGL.framework */; };
@@ -25,6 +26,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4E105C441B2BE0DB00CE8C00 /* RgbImage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RgbImage.cpp; sourceTree = "<group>"; };
+		4E105C451B2BE0DB00CE8C00 /* RgbImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RgbImage.h; sourceTree = "<group>"; };
 		6542B6881B2B471200D12CAE /* CG_PROJ_FINAL */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CG_PROJ_FINAL; sourceTree = BUILT_PRODUCTS_DIR; };
 		6542B68B1B2B471200D12CAE /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		6542B6921B2B4B3700D12CAE /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
@@ -66,6 +69,8 @@
 			isa = PBXGroup;
 			children = (
 				6542B68B1B2B471200D12CAE /* main.cpp */,
+				4E105C441B2BE0DB00CE8C00 /* RgbImage.cpp */,
+				4E105C451B2BE0DB00CE8C00 /* RgbImage.h */,
 			);
 			path = CG_PROJ_FINAL;
 			sourceTree = "<group>";
@@ -127,6 +132,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6542B68C1B2B471200D12CAE /* main.cpp in Sources */,
+				4E105C461B2BE0DB00CE8C00 /* RgbImage.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

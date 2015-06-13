@@ -5,12 +5,15 @@
 #endif
 #include <iostream>
 #include <cmath>
+#include "RgbImage.h"
 
 
- GLfloat GREEN[] = {1, 0, 0};
+GLfloat GREEN[] = {1, 0, 0};
+GLuint texture;
 
 float width=800;
 float height=600;
+
 
 
 class Camera{
@@ -121,74 +124,79 @@ public:
     
     void draw(){
         
-        glColor4f(1.0, 0.0, 0.0, 0.0);
-        
+        glEnable(GL_TEXTURE_2D);
+        glBindTexture(GL_TEXTURE_2D, texture);
         glBegin(GL_QUADS);
         
-        glVertex3f(0.0, 0.0, 0.0);
-        glVertex3f(0.0, 0.0, largura);
-        glVertex3f(comprimento, 0.0, largura);
-        glVertex3f(comprimento, 0.0, 0.0);
+        glTexCoord2f(0.0, 0.0); glVertex3f(0.0, 0.0, 0.0);
+        glTexCoord2f(1.0, 0.0); glVertex3f(0.0, 0.0, largura);
+        glTexCoord2f(1.0, 1.0); glVertex3f(comprimento, 0.0, largura);
+        glTexCoord2f(0.0, 1.0); glVertex3f(comprimento, 0.0, 0.0);
         
         glEnd();
+        glDisable(GL_TEXTURE_2D);
         
-        
-        glColor4f(0.0, 1.0, 0.0, 0.0);
-        
+        glEnable(GL_TEXTURE_2D);
+        glBindTexture(GL_TEXTURE_2D, texture);
         glBegin(GL_QUADS);
         
-        glVertex3f(0.0, 0.0, 0.0);
-        glVertex3f(0.0, altura, 0.0);
-        glVertex3f(comprimento, altura, 0.0);
-        glVertex3f(comprimento, 0.0, 0.0);
+        glTexCoord2f(0.0, 0.0); glVertex3f(0.0, 0.0, 0.0);
+        glTexCoord2f(1.0, 0.0); glVertex3f(0.0, altura, 0.0);
+        glTexCoord2f(1.0, 1.0); glVertex3f(comprimento, altura, 0.0);
+        glTexCoord2f(0.0, 1.0); glVertex3f(comprimento, 0.0, 0.0);
         
         glEnd();
+        glDisable(GL_TEXTURE_2D);
         
-        
-        glColor4f(0.0, 0.0, 1.0, 0.0);
-        
+        glEnable(GL_TEXTURE_2D);
+        glBindTexture(GL_TEXTURE_2D, texture);
         glBegin(GL_QUADS);
         
-        glVertex3f(0.0, 0.0, 0.0);
-        glVertex3f(0.0, altura, 0.0);
-        glVertex3f(0.0, altura, largura);
-        glVertex3f(0.0, 0.0, largura);
+        glTexCoord2f(0.0, 0.0); glVertex3f(0.0, 0.0, 0.0);
+        glTexCoord2f(1.0, 0.0); glVertex3f(0.0, altura, 0.0);
+        glTexCoord2f(1.0, 1.0); glVertex3f(0.0, altura, largura);
+        glTexCoord2f(0.0, 1.0); glVertex3f(0.0, 0.0, largura);
         
         glEnd();
+        glDisable(GL_TEXTURE_2D);
         
-        glColor4f(0.0, 0.0, 1.0, 0.0);
-        
+        glEnable(GL_TEXTURE_2D);
+        glBindTexture(GL_TEXTURE_2D, texture);
         glBegin(GL_QUADS);
         
-        glVertex3f(comprimento, 0.0, 0.0);
-        glVertex3f(comprimento, altura, 0.0);
-        glVertex3f(comprimento, altura, largura);
-        glVertex3f(comprimento, 0.0, largura);
+        
+        glTexCoord2f(0.0, 0.0); glVertex3f(comprimento, 0.0, 0.0);
+        glTexCoord2f(1.0, 0.0); glVertex3f(comprimento, altura, 0.0);
+        glTexCoord2f(1.0, 1.0); glVertex3f(comprimento, altura, largura);
+        glTexCoord2f(0.0, 1.0); glVertex3f(comprimento, 0.0, largura);
         
         glEnd();
+        glDisable(GL_TEXTURE_2D);
         
-        glColor4f(0.0, 1.0, 0.0, 0.0);
+        glEnable(GL_TEXTURE_2D);
+        glBindTexture(GL_TEXTURE_2D, texture);
+        glBegin(GL_QUADS);
+       
+        glTexCoord2f(0.0, 0.0); glVertex3f(0.0, 0.0, largura);
+        glTexCoord2f(1.0, 0.0); glVertex3f(0.0, altura, largura);
+        glTexCoord2f(1.0, 1.0); glVertex3f(comprimento, altura, largura);
+        glTexCoord2f(0.0, 1.0); glVertex3f(comprimento, 0.0, largura);
         
+        glEnd();
+        glDisable(GL_TEXTURE_2D);
+        
+        glEnable(GL_TEXTURE_2D);
+        glBindTexture(GL_TEXTURE_2D, texture);
         glBegin(GL_QUADS);
         
-        glVertex3f(0.0, 0.0, largura);
-        glVertex3f(0.0, altura, largura);
-        glVertex3f(comprimento, altura, largura);
-        glVertex3f(comprimento, 0.0, largura);
+        
+        glTexCoord2f(0.0, 0.0); glVertex3f(0.0, altura, 0.0);
+        glTexCoord2f(1.0, 0.0); glVertex3f(0.0, altura, largura);
+        glTexCoord2f(1.0, 1.0); glVertex3f(comprimento, altura, largura);
+        glTexCoord2f(0.0, 1.0); glVertex3f(comprimento, altura, 0.0);
         
         glEnd();
-        
-        glColor4f(1.0, 0.0, 0.0, 0.0);
-        
-        glBegin(GL_QUADS);
-        
-        glVertex3f(0.0, altura, 0.0);
-        glVertex3f(0.0, altura, largura);
-        glVertex3f(comprimento, altura, largura);
-        glVertex3f(comprimento, altura, 0.0);
-        
-        glEnd();
-        
+        glDisable(GL_TEXTURE_2D);
     }
     
 };
@@ -204,6 +212,8 @@ Bola bola = Bola(1,GREEN,0.0,0.0,0.0);
 Casa house;
 
 Camera cam;
+
+
 
 
 void projection(){
@@ -234,12 +244,29 @@ void display(){
     glutSwapBuffers();
 }
 
-void init() {
+void criaTextura(){
+    
+    glGenTextures(1, &texture);
+    glBindTexture(GL_TEXTURE_2D, texture);
+    RgbImage imag("/Users/gabrieloliveira/Documents/UC/CG/ProjectoFinal_CG/mamas.bmp");
+    glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imag.GetNumCols(), imag.GetNumRows(), 0, GL_RGB, GL_UNSIGNED_BYTE, imag.ImageData());
+    
+}
 
+void init() {
+    
+    glEnable(GL_DEPTH_TEST);
+    glEnable(GL_TEXTURE_2D);
+    
+    criaTextura();
+    
     cam.set_values(0, 10, 0.04, 0.2);
-    
-    
-    
     house.set_values(8.0, 8.0, 8.0);
     
 
@@ -271,7 +298,7 @@ int main(int argc, char** argv) {
     glutInitWindowPosition(80, 80);
     glutInitWindowSize(width,height);
     glutCreateWindow("Projecto Final CG");
-    glEnable(GL_DEPTH_TEST);
+    
     glutTimerFunc(100, timer, 0);
     init();
     glutDisplayFunc(display);
