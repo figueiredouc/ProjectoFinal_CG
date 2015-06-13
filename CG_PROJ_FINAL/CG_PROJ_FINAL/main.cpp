@@ -49,14 +49,17 @@ public:
     }
     
     void moveRight(){
-        teta += dTeta;
+        if(teta<1.4)
+            teta += dTeta;
     }
     
     void moveLeft(){
-        teta -= dTeta;
+        if(teta>0.1)
+            teta -= dTeta;
     }
     void moveUp(){
-        y += dY;
+        //if(y<raio)
+            y += dY;
     }
     void moveDown(){
         if (y>dY)
@@ -102,6 +105,102 @@ public:
         glPopMatrix();
     }
     
+};
+
+class Caixa{
+    
+    float lado;
+    float x;
+    float z;
+    float direction;
+    float max;
+    
+public:
+    
+    void set_values(float l,float a, float b, float maxZ){
+        
+        lado=l;
+        x=a;
+        z=b;
+        max=maxZ;
+        direction=-1;
+    }
+    
+    void drawBox(){
+        
+        glColor4f(0.0, 0.0, 0.0, 0.0);
+        
+        glBegin(GL_QUADS);
+        
+        glVertex3f(x-(lado/2), 1, z+(lado/2));
+        glVertex3f(x+(lado/2), 1.0, z+(lado/2));
+        glVertex3f(x+(lado/2), 1.0, z-(lado/2));
+        glVertex3f(x-(lado/2), 1.0, z-(lado/2));
+        
+        glEnd();
+        
+        
+        glColor4f(0.0, 1.0, 1.0, 0.0);
+        
+        glBegin(GL_QUADS);
+        
+        glVertex3f(x-(lado/2), 1.0, z+(lado/2));
+        glVertex3f(x-(lado/2), lado+1, z+(lado/2));
+        glVertex3f(x+(lado/2), lado+1, z+(lado/2));
+        glVertex3f(x+(lado/2), 1.0, z+(lado/2));
+        
+        glEnd();
+        
+        glBegin(GL_QUADS);
+        
+        glVertex3f(x+(lado/2), 1.0, z+(lado/2));
+        glVertex3f(x+(lado/2), lado+1, z+(lado/2));
+        glVertex3f(x+(lado/2), lado+1, z-(lado/2));
+        glVertex3f(x+(lado/2), 1.0, z-(lado/2));
+        
+        glEnd();
+        
+        glBegin(GL_QUADS);
+        
+        glVertex3f(x-(lado/2), 1.0, z-(lado/2));
+        glVertex3f(x-(lado/2), lado+1, z-(lado/2));
+        glVertex3f(x+(lado/2), lado+1, z-(lado/2));
+        glVertex3f(x+(lado/2), 1.0, z-(lado/2));
+        
+        glEnd();
+        
+        glBegin(GL_QUADS);
+        
+        glVertex3f(x-(lado/2), 1.0, z+(lado/2));
+        glVertex3f(x-(lado/2), lado+1, z+(lado/2));
+        glVertex3f(x-(lado/2), lado+1, z-(lado/2));
+        glVertex3f(x-(lado/2), 1.0, z-(lado/2));
+        
+        glEnd();
+        
+    }
+    
+    void update(){
+        
+        z += direction * 0.05;
+        
+        printf("z:%f\n",z);
+        
+        if ((z+lado/2) > max) {
+            printf("entra");
+            z = max-lado/2;
+            direction = -1;
+        }
+        else if ((z-lado/2) < 0) {
+            z = 0+lado/2;
+            direction = 1;
+        }
+        
+        glPushMatrix();
+        glTranslated(0, 0, z);
+        drawBox();
+        glPopMatrix();
+    }
 };
 
 class Casa{
@@ -207,6 +306,8 @@ Casa house;
 
 Camera cam;
 
+Caixa box;
+
 bool inicialSet=true;
 
 
@@ -215,10 +316,10 @@ void projection(){
     
     glLoadIdentity();
     
-    gluLookAt(cam.getX(),cam.getY(),cam.getZ(), 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+    gluLookAt(cam.getX(),cam.getY(),cam.getZ(), 25.0, 5.0, 50.0, 0.0, 1.0, 0.0);
     
     
-    printf("camera(%f,%f,%f)\n",cam.getX(),cam.getY(),cam.getZ());
+    //printf("camera(%f,%f,%f)\n",cam.getX(),cam.getY(),cam.getZ());
     
 }
 
@@ -238,6 +339,13 @@ void display(){
     projection();
     house.draw();
     bola.update();
+    box.update();
+    
+    glBegin(GL_LINES);
+    
+    glVertex3f(25.0, 0, 50);
+    glVertex3f(25.0, 1000, 50);
+    glEnd();
     
     glutSwapBuffers();
 }
@@ -264,7 +372,8 @@ void init() {
     
     criaTextura();
     house.set_values(50.0);
-    cam.set_values(PI/4, house.getLado(), 0.04, 0.2,house.getLado());
+    cam.set_values(PI/4, house.getLado()-5, 0.04, 0.5,house.getLado());
+    box.set_values(10, 25, 25,house.getLado());
     
     printf("camera(%f,%f,%f)\n",cam.getX(),cam.getY(),cam.getZ());
     
@@ -279,8 +388,8 @@ void timer(int v) {
 
 void special(int key, int, int) {
     switch (key) {
-        case GLUT_KEY_LEFT: cam.moveLeft(); break;
-        case GLUT_KEY_RIGHT: cam.moveRight(); break;
+        case GLUT_KEY_RIGHT: cam.moveLeft(); break;
+        case GLUT_KEY_LEFT: cam.moveRight(); break;
         case GLUT_KEY_UP: cam.moveUp(); break;
         case GLUT_KEY_DOWN: cam.moveDown(); break;
        /* case 'a' : look_to_left(); break;
