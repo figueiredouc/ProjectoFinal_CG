@@ -82,7 +82,6 @@ public:
     
     void update(){
         
-        x+=0.1;
        
         glPushMatrix();
         glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, cor);
