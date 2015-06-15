@@ -180,6 +180,14 @@ public:
         
     }
     
+    float getX(){
+        return x;
+    }
+    
+    float getZ(){
+        return z;
+    }
+    
     void update(){
         
         z += direction * 0.05;
@@ -198,6 +206,74 @@ public:
         drawBox();
         glPopMatrix();
     }
+};
+
+class Ponto{
+
+    float x;
+    float y;
+    float z;
+    float max;
+    float delta;
+    
+    
+public:
+    
+    void set_values(float a, float b, float c,float m,float d){
+        
+        x=a;
+        y=b;
+        z=c;
+        max=m;
+        delta=d;
+    
+    }
+    
+    float getX(){
+        return x;
+    }
+    
+    float getY(){
+        return y;
+    }
+    
+    float getZ(){
+        return z;
+    }
+    
+    void moveRight(){
+        
+        printf("right\n",x);
+
+        if(x>0){
+            x-=delta;
+        }
+        
+        printf("mira x:%f\n",x);
+
+    }
+    
+    void moveLeft(){
+        printf("left\n",x);
+
+        if(x<max){
+            x+=delta;
+        }
+        
+        printf("mira x:%f\n",x);
+    }
+    
+    void moveUp(){
+        if(y<0){
+            x+=delta;
+        }
+
+    }
+    
+    void moveDown(){
+        
+    }
+    
 };
 
 class Casa{
@@ -305,6 +381,8 @@ Camera cam;
 
 Caixa box;
 
+Ponto mira;
+
 bool inicialSet=true;
 
 
@@ -313,10 +391,9 @@ void projection(){
     
     glLoadIdentity();
     
-    gluLookAt(cam.getX(),cam.getY(),cam.getZ(), 25.0, 5.0, 25.0, 0.0, 1.0, 0.0);
+    gluLookAt(cam.getX(),cam.getY(),cam.getZ(), mira.getX(), mira.getY(), mira.getZ(), 1.0, 1.0, 1.0);
     
-    
-    //printf("camera(%f,%f,%f)\n",cam.getX(),cam.getY(),cam.getZ());
+    //printf("mira(%d,%d,%d)\n",mira.getX(),mira.getY(),mira.getZ());
     
 }
 
@@ -333,11 +410,11 @@ void reshape(GLint w, GLint h){
 void display(){
     
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    
     projection();
     house.draw();
     bola.update();
     box.update();
-    
     
     glutSwapBuffers();
 }
@@ -366,9 +443,11 @@ void init() {
     house.set_values(50.0);
     cam.set_values(PI/4, house.getLado()-5, 0.04, 0.5,house.getLado());
     box.set_values(10, 25, 25,house.getLado());
+    mira.set_values(0.0, 0.0, 0.0,house.getLado(),0.04);
     
     printf("camera(%f,%f,%f)\n",cam.getX(),cam.getY(),cam.getZ());
-    
+    printf("mira(%f,%f,%f)\n",mira.getX(),mira.getY(),mira.getZ());
+
     
 
 }
@@ -384,9 +463,9 @@ void special(int key, int, int) {
         case GLUT_KEY_LEFT: cam.moveRight(); break;
         case GLUT_KEY_UP: cam.moveUp(); break;
         case GLUT_KEY_DOWN: cam.moveDown(); break;
-       /* case 'a' : look_to_left(); break;
-        case 's' : look_to_down(); break;
-        case 'd' : look_to_righ(); break;
+        case 'a' : mira.moveLeft(); break;
+        case 's' : mira.moveRight(); break;
+       /* case 'd' : look_to_righ(); break;
         case 'w' : look_to_up(); break;*/
     }
     glutPostRedisplay();
